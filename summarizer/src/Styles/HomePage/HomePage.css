@@ -6,6 +6,22 @@
 .HomePageWrapper .SummariesArea {
   border-style: solid;
   width: 20%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+.HomePageWrapper .SummariesArea .SummaryBlock {
+  display: flex;
+}
+.HomePageWrapper .SummariesArea .SummaryBlock:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+.HomePageWrapper .SummariesArea .SummaryBlock .SummaryTitle {
+  padding-left: 20%;
+}
+.HomePageWrapper .SummariesArea .SummaryBlock .SummaryIcon {
+  padding-top: 2%;
+  padding-left: 10%;
 }
 .HomePageWrapper .UploadFileArea {
   border-style: solid;

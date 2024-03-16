@@ -7,6 +7,26 @@
     {
         border-style: solid;
         width: 20%;
+        height: 100vh;
+        overflow-y: scroll;
+      
+        .SummaryBlock
+        {
+            display: flex;
+            &:hover{
+                background-color: gray;
+                cursor: pointer;
+            }
+            .SummaryTitle
+            {
+                padding-left: 20%;
+            }
+            .SummaryIcon
+            {
+                padding-top: 2%;
+                padding-left: 10%;
+            }
+        }
         
     }
     .UploadFileArea
