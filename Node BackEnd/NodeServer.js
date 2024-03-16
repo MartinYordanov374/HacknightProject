@@ -80,7 +80,7 @@ app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
 app.get('/getSummaries/', async (req,res) => {
     try{
         
-        let result = await Summary.find();
+        let result = (await Summary.find()).reverse();
         res.status(200).send(result)
     }
     catch(err)
