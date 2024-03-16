@@ -10,7 +10,11 @@ export default function HomePage() {
             This is where the summaries go
         </div>
         <div className='UploadFileArea'>
-            <input class="form-control form-control-lg UploadPdfInput" type="file" id="formFile"/>
+            <input 
+            class="form-control form-control-lg UploadPdfInput" 
+            type="file" 
+            id="formFile"
+            accept="application/pdf"/>
         </div>
     </div>
   )
