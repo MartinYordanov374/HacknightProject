@@ -32,6 +32,21 @@ app.post('/summarizeFile/', async (req,res) => {
    
 })
 
+app.get('/getSummaries/', async (req,res) => {
+    try{
+        
+       let result = await Summary.find();
+        
+    
+         res.status(200).send(result)
+    }
+    catch(err)
+    {
+        res.status(400).send(err)
+    }
+   
+})
+
 app.listen(port, () => {
     console.log('server listening on port 3000')
 })
