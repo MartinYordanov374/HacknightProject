@@ -9,6 +9,8 @@ export default function HomePage() {
   return (
     <div className='HomePageWrapper'>
         <div className='SummariesArea'>
+            {/* TODO: Set the summaries to lead to the respective summary page, i.e. 
+            show it to the summary result */}
             {summaries.map((summary) => {
                 return(
                 <div className='SummaryBlock'>
