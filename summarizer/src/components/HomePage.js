@@ -12,7 +12,7 @@ export default function HomePage() {
       const getSummaries = async () => {
         try {
           const response = await axios.get('http://localhost:3030/getSummaries');
-          console.log(response)
+          
           // Extract data from the response
           setSummaries(response.data);
         } catch (err) {
@@ -23,16 +23,32 @@ export default function HomePage() {
 
       getSummaries()
     }, [])
+
+    const getSummaryById = async(id) =>
+    {
+      try 
+      {
+        const response = await axios.get(`http://localhost:3030/getSummary/${id}`);
+        
+       console.log(response);
+      } 
+      catch (err) 
+      {
+        // Handle errors
+        console.log(err.message);
+      }
+    }
   return (
     <div className='HomePageWrapper'>
         <div className='SummariesArea'>
             {/* TODO: Set the summaries to lead to the respective summary page, i.e. 
             show it to the summary result */}
             {summaries.map((summary) => {
+              
                 return(
-                <div className='SummaryBlock'>
+                <div className='SummaryBlock' key ={summary._id} onClick={() => getSummaryById(summary._id)}>
                     <FontAwesomeIcon icon={faBook} className='SummaryIcon'/> 
-                    <p className='SummaryTitle'>Summary 1</p>
+                    <p className='SummaryTitle'>{summary.SummaryTitle}</p>
                 </div>)
             })}
         </div>
