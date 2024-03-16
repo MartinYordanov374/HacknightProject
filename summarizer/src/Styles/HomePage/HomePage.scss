@@ -5,7 +5,7 @@
     overflow-y: scroll;
     .SummariesArea
     {
-        border-style: solid;
+        // border-style: solid;
         width: 20%;
         height: 100vh;
         overflow-y: scroll;
@@ -13,6 +13,8 @@
         .SummaryBlock
         {
             display: flex;
+            border-bottom-style: solid;
+            border-width: 1px;
             &:hover{
                 background-color: gray;
                 cursor: pointer;
@@ -31,7 +33,7 @@
     }
     .UploadFileArea
     {
-        border-style: solid;
+        // border-style: solid;
         width: 100%;
         .btnUpload{
             font-size: large;
@@ -44,7 +46,8 @@
             height: 90vh;
             overflow-y: scroll;
             border-style: solid;
-            border-color: red;
+            border-color: black;
+            border-width: 1px;
         }
         .input-group{
             display: flex;

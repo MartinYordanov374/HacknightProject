@@ -4,13 +4,14 @@
   overflow-y: scroll;
 }
 .HomePageWrapper .SummariesArea {
-  border-style: solid;
   width: 20%;
   height: 100vh;
   overflow-y: scroll;
 }
 .HomePageWrapper .SummariesArea .SummaryBlock {
   display: flex;
+  border-bottom-style: solid;
+  border-width: 1px;
 }
 .HomePageWrapper .SummariesArea .SummaryBlock:hover {
   background-color: gray;
@@ -24,7 +25,6 @@
   padding-left: 10%;
 }
 .HomePageWrapper .UploadFileArea {
-  border-style: solid;
   width: 100%;
 }
 .HomePageWrapper .UploadFileArea .btnUpload {
@@ -37,7 +37,8 @@
   height: 90vh;
   overflow-y: scroll;
   border-style: solid;
-  border-color: red;
+  border-color: black;
+  border-width: 1px;
 }
 .HomePageWrapper .UploadFileArea .input-group {
   display: flex;
