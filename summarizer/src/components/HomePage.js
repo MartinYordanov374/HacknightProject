@@ -24,7 +24,7 @@ export default function HomePage() {
       };
 
       getSummaries()
-    }, [])
+    })
 
     const getSummaryById = async(id) =>
     {
@@ -46,23 +46,23 @@ export default function HomePage() {
       let name = selectedFile['name'];
     
       // setFile(selectedFile
-      await summarizeFile(event.target.files[0]); // Call summarizeFile after setting the file state
+      await summarizeFile(event.target.files[0], name); // Call summarizeFile after setting the file state
     };
     
     const saveSummary = async(summary) => {
-      let summaryTitle = "custom title"
-      let summaryContent = summary
-      let summaryObject = {"summaryTitle" : summaryTitle, "summaryContent": summaryContent}
+      let summaryTitle = "NEW title"
+      let summaryObject = {"summaryTitle" : summaryTitle, "summaryContent": summary}
 
       let response = await axios.post(`${baseURL}/saveSummary`, summaryObject)
     }
 
-    const summarizeFile = async(targetFile) => {
+    const summarizeFile = async(targetFile, name) => {
       if (!targetFile)
       {
         console.error('No file selected.');
         return;
       }
+  
 
       const formData = new FormData();
       formData.append('lectureFile', targetFile);
@@ -75,15 +75,9 @@ export default function HomePage() {
           }
         }).then(async(res) => {
           let summaryContent = res.data;
+          
           await saveSummary(summaryContent)
         })
-
-
-        
-        
-      
-
-       
       } catch (error) 
       {
 

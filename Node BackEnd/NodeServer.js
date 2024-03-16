@@ -32,7 +32,6 @@ app.get('/getSummary/:summaryId', async(req,res) => {
     try{
         let summaryId = req.params.summaryId;
         const objectId = new ObjectId(summaryId);
-        console.log(summaryId)
         let result = await Summary.find({_id: objectId});
         res.status(200).send(result)
     }
@@ -43,10 +42,8 @@ app.get('/getSummary/:summaryId', async(req,res) => {
 })
 
 app.post('/saveSummary', async(req,res) => {
-    console.log(req.body)
     let summaryTitle = req.body.summaryTitle;
     let summaryContent = req.body.summaryContent;
-    // console.log(summaryTitle, summaryContent)
     try{
         let summary = await Summary.create({
             "SummaryTitle": summaryTitle,
@@ -68,9 +65,8 @@ app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
         }
         let target_file_path = path.join(__dirname + '/uploads/' + req.file.filename)
-        console.log(target_file_path)
         let result = await callPythonScript(target_file_path);
-        
+        console.log(result[1])
     
          res.status(200).send(result)
     }

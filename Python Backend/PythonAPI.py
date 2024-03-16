@@ -7,6 +7,7 @@ app = Flask(__name__)
 @app.route("/execute", methods=["GET"])
 def text_summarizer():
     file_path = request.args.get('filePath')
+
     summarized_text = summarize_text(file_path)
     
     
