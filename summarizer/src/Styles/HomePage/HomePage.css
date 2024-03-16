@@ -10,4 +10,26 @@
 .HomePageWrapper .UploadFileArea {
   border-style: solid;
   width: 100%;
+}
+.HomePageWrapper .UploadFileArea .btnUpload {
+  font-size: large;
+  width: 100%;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+}
+.HomePageWrapper .UploadFileArea .SummaryResult {
+  height: 90vh;
+  overflow-y: scroll;
+  border-style: solid;
+  border-color: red;
+}
+.HomePageWrapper .UploadFileArea .input-group {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating), .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select {
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
 }/*# sourceMappingURL=HomePage.css.map */
