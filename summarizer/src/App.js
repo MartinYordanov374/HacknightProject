@@ -6,10 +6,10 @@ import ErrorPage from './components/ErrorPage';
 function App() {
   return (
    <BrowserRouter>
-    <Routes>
-        <Route path = '/' Component={HomePage}/>
-        <Route path = '*' Component={ErrorPage}/>
-    </Routes>
+      <Routes>
+          <Route path = '/' Component={HomePage}/>
+          <Route path = '*' Component={ErrorPage}/>
+      </Routes>
    </BrowserRouter>
   );
 }

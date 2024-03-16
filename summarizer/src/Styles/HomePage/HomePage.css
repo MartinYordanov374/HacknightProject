@@ -1,1 +1,13 @@
-/*# sourceMappingURL=HomePage.css.map */
+.HomePageWrapper {
+  display: flex;
+  height: 100vh;
+  overflow-y: scroll;
+}
+.HomePageWrapper .SummariesArea {
+  border-style: solid;
+  width: 20%;
+}
+.HomePageWrapper .UploadFileArea {
+  border-style: solid;
+  width: 100%;
+}/*# sourceMappingURL=HomePage.css.map */

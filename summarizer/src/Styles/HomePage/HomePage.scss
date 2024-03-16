@@ -1,4 +1,18 @@
-.UploadFileJumbotron
+.HomePageWrapper
 {
-    
+    display: flex;
+    height: 100vh;
+    overflow-y: scroll;
+    .SummariesArea
+    {
+        border-style: solid;
+        width: 20%;
+        
+    }
+    .UploadFileArea
+    {
+        border-style: solid;
+        width: 100%;
+        
+    }
 }
