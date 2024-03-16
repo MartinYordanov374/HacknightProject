@@ -6,9 +6,12 @@ let cors = require('cors')
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3030
+const multer  = require('multer');
 
 app.use(bodyParser.json());
 app.use(cors());
+
+const upload = multer({ dest: 'uploads/' })
 
 app.get('/getSummary/:summaryId', async(req,res) => {
     try{
@@ -24,7 +27,7 @@ app.get('/getSummary/:summaryId', async(req,res) => {
     }
 })
 
-app.post('/summarizeFile/', async (req,res) => {
+app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
     try{
         
         let summaryTitle = req.body.SummaryTitle;
