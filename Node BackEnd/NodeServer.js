@@ -9,10 +9,13 @@ const port = 3030
 const multer  = require('multer');
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios')
+
 app.use(bodyParser.json());
 app.use(cors());
 
-const pythonAPI_BaseURL = 'http://localhost:5000'
+
+const pythonAPI_BaseURL = 'http://127.0.0.1:5000'
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -39,24 +42,37 @@ app.get('/getSummary/:summaryId', async(req,res) => {
     }
 })
 
+app.post('/saveSummary', async(req,res) => {
+    console.log(req.body)
+    let summaryTitle = req.body.summaryTitle;
+    let summaryContent = req.body.summaryContent;
+    // console.log(summaryTitle, summaryContent)
+    try{
+        let summary = await Summary.create({
+            "SummaryTitle": summaryTitle,
+            "SummaryContent": summaryContent
+       });
+       await summary.save();
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+
+})
+
 app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
+    
     try{
         let lectureFile = {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
         }
         let target_file_path = path.join(__dirname + '/uploads/' + req.file.filename)
-
+        console.log(target_file_path)
         let result = await callPythonScript(target_file_path);
-        //TODO: Those below will be returned from the python API
         
-        let summaryTitle = req.body.SummaryTitle;
-        let summaryContent = req.body.SummaryContent;
-        let summary = await Summary.create({
-            "SummaryTitle": summaryTitle,
-            "SummaryContent": summaryContent
-         });
     
-         res.status(200).send('summary successfully created')
+         res.status(200).send(result)
     }
     catch(err)
     {
@@ -91,8 +107,12 @@ async function getMongooseConfigRunning(appParam)
 
 getMongooseConfigRunning(app)
 
-async function callPythonScript(filePath)
-{
-    const response = await axios.get(`${pythonAPI_BaseURL}/execute`);
-    return response;
+async function callPythonScript(filePath) {
+    try {
+        const response = await axios.get(`${pythonAPI_BaseURL}/execute?filePath=${encodeURIComponent(filePath)}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error calling Python script:', error);
+        throw error;
+    }
 }

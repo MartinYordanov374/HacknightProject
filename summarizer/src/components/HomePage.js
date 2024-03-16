@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function HomePage() {
     let [summaries, setSummaries] = useState([])
     let [currentSummary, setCurrentSummary] = useState();
-    let  [file, setFile] = useState(null);
+    let  [file, setFile] = useState();
 
     const baseURL = 'http://localhost:3030';
     useEffect(() => {
@@ -40,27 +40,54 @@ export default function HomePage() {
         console.log(err.message);
       }
     }
-    const handleFileChange = (event) => {
 
-
+    const handleFileChange = async (event) => {
       const selectedFile = event.target.files[0];
-      let name = selectedFile['name']
-      setFile(selectedFile);
-      summarizeFile(selectedFile); 
+      let name = selectedFile['name'];
+    
+      // setFile(selectedFile
+      await summarizeFile(event.target.files[0]); // Call summarizeFile after setting the file state
     };
-    const summarizeFile = async(file) => {
+    
+    const saveSummary = async(summary) => {
+      let summaryTitle = "custom title"
+      let summaryContent = summary
+      let summaryObject = {"summaryTitle" : summaryTitle, "summaryContent": summaryContent}
+
+      let response = await axios.post(`${baseURL}/saveSummary`, summaryObject)
+    }
+
+    const summarizeFile = async(targetFile) => {
+      if (!targetFile)
+      {
+        console.error('No file selected.');
+        return;
+      }
+
       const formData = new FormData();
-      formData.append('lectureFile', file);
-      console.log(formData)
+      formData.append('lectureFile', targetFile);
       try {
-        const response = await axios.post(`${baseURL}/summarizeFile`, formData, 
+        
+        let response = await axios.post(`${baseURL}/summarizeFile`, formData, 
         {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
-        });
-        console.log(response.data);
-      } catch (error) {
+        }).then(async(res) => {
+          let summaryContent = res.data;
+          await saveSummary(summaryContent)
+        })
+
+
+        
+        
+      
+
+       
+      } catch (error) 
+      {
+
+        console.log(error)
         console.error('Error uploading file:', error);
       }
     }
