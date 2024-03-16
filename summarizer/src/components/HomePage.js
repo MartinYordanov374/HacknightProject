@@ -9,7 +9,7 @@ export default function HomePage() {
     let [summaries, setSummaries] = useState([])
     let [currentSummary, setCurrentSummary] = useState();
     let  [file, setFile] = useState();
-
+    let [CurrentSummaryTitle, setCurrentSummaryTitle] = useState();
     const baseURL = 'http://localhost:3030';
     useEffect(() => {
       const getSummaries = async () => {
@@ -44,16 +44,23 @@ export default function HomePage() {
     const handleFileChange = async (event) => {
       const selectedFile = event.target.files[0];
       let name = selectedFile['name'];
-    
+      setCurrentSummaryTitle(name)
       // setFile(selectedFile
       await summarizeFile(event.target.files[0], name); // Call summarizeFile after setting the file state
     };
     
-    const saveSummary = async(summary) => {
-      let summaryTitle = "NEW title"
-      let summaryObject = {"summaryTitle" : summaryTitle, "summaryContent": summary}
+    const saveSummary = async(summary, summaryTitle) => {
+      try
+      {
+        let summaryObject = {"summaryTitle" : summaryTitle, "summaryContent": summary}
+  
+        let response = await axios.post(`${baseURL}/saveSummary`, summaryObject)
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
 
-      let response = await axios.post(`${baseURL}/saveSummary`, summaryObject)
     }
 
     const summarizeFile = async(targetFile, name) => {
@@ -76,7 +83,7 @@ export default function HomePage() {
         }).then(async(res) => {
           let summaryContent = res.data;
           
-          await saveSummary(summaryContent)
+          await saveSummary(summaryContent, name)
         })
       } catch (error) 
       {
