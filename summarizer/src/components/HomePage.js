@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function HomePage() {
     let [summaries, setSummaries] = useState([])
     let [currentSummary, setCurrentSummary] = useState();
+    let  [file, setFile] = useState(null);
 
     const baseURL = 'http://localhost:3030';
     useEffect(() => {
@@ -39,18 +40,29 @@ export default function HomePage() {
         console.log(err.message);
       }
     }
+    const handleFileChange = (event) => {
+
+
+      const selectedFile = event.target.files[0];
+      let name = selectedFile['name']
+      setFile(selectedFile);
+      summarizeFile(selectedFile); 
+    };
+    const summarizeFile = async(file) => {
+      const response = await axios.get(`${baseURL}/summarizeFile`);
+    }
   return (
     <div className='HomePageWrapper'>
         <div className='SummariesArea'>
-            {/* TODO: Set the summaries to lead to the respective summary page, i.e. 
-            show it to the summary result */}
-            {summaries.length > 0 ? summaries.map((summary) => {
+            {summaries.length > 0 
+            ? summaries.map((summary) => {
                     return(
                     <div className='SummaryBlock' key ={summary._id} onClick={() => getSummaryById(summary._id)}>
                         <FontAwesomeIcon icon={faBook} className='SummaryIcon'/> 
                         <p className='SummaryTitle'>{summary.SummaryTitle}</p>
                     </div>)
-            }): "You don't have any summaries yet."}
+            })
+            : "You don't have any summaries yet."}
         </div>
         <div className='UploadFileArea'>
             <div className='SummaryResult'>
@@ -67,6 +79,7 @@ export default function HomePage() {
                 className="form-control UploadPdfInput visually-hidden" 
                 id="formFile"
                 accept="application/pdf"
+                onChange={handleFileChange} 
               />
               
             </div>
