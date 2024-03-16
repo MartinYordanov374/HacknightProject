@@ -7,11 +7,11 @@ import axios from 'axios';
 
 export default function HomePage() {
     let [summaries, setSummaries] = useState([1,2,3,4,5,6,7,8,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
-
+    const baseURL = 'http://localhost:3030';
     useEffect(() => {
       const getSummaries = async () => {
         try {
-          const response = await axios.get('http://localhost:3030/getSummaries');
+          const response = await axios.get(`${baseURL}/getSummaries`);
           
           // Extract data from the response
           setSummaries(response.data);
@@ -28,7 +28,7 @@ export default function HomePage() {
     {
       try 
       {
-        const response = await axios.get(`http://localhost:3030/getSummary/${id}`);
+        const response = await axios.get(`${baseURL}/getSummary/${id}`);
         
        console.log(response);
       } 
