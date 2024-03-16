@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../Styles/ErrorPage.css'
+import '../Styles/ErrorPage/ErrorPage.css'
 export default function ErrorPage() {
   return (
     <div className="errorMessageWrapper">
