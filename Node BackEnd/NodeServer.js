@@ -3,20 +3,33 @@ let Summary = require('./Schemas/SummarySchema.js');
 let mongooseConfiguration = require('./mongooseSetup.js')
 
 const app = express();
+const bodyParser = require('body-parser');
 const port = 3000
+
+app.use(bodyParser.json());
 
 
 app.get('/getSummary/:summaryId', (req,res) => {
     console.log('getting summary')
 })
 
-app.get('/summarizeFile/', async (req,res) => {
-     let summary = await Summary.create({
-        "SummaryTitle":"test title",
-        "SummaryContent": "some content"
-     });
-
-     res.status(200).send('summary successfully created')
+app.post('/summarizeFile/', async (req,res) => {
+    try{
+        
+        let summaryTitle = req.body.SummaryTitle;
+        let summaryContent = req.body.SummaryContent;
+        let summary = await Summary.create({
+            "SummaryTitle": summaryTitle,
+            "SummaryContent": summaryContent
+         });
+    
+         res.status(200).send('summary successfully created')
+    }
+    catch(err)
+    {
+        res.status(400).send(err)
+    }
+   
 })
 
 app.listen(port, () => {
