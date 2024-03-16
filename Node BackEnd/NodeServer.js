@@ -12,6 +12,8 @@ const fs = require('fs');
 app.use(bodyParser.json());
 app.use(cors());
 
+const pythonAPI_BaseURL = 'http://localhost:5000'
+
 const upload = multer({
     storage: multer.diskStorage({
       destination: function (req, file, cb) {
@@ -39,11 +41,14 @@ app.get('/getSummary/:summaryId', async(req,res) => {
 
 app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
     try{
-        console.log(req.file.filename)
         let lectureFile = {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
         }
+        let target_file_path = path.join(__dirname + '/uploads/' + req.file.filename)
+
+        let result = await callPythonScript(target_file_path);
         //TODO: Those below will be returned from the python API
+        
         let summaryTitle = req.body.SummaryTitle;
         let summaryContent = req.body.SummaryContent;
         let summary = await Summary.create({
@@ -85,3 +90,9 @@ async function getMongooseConfigRunning(appParam)
 }
 
 getMongooseConfigRunning(app)
+
+async function callPythonScript(filePath)
+{
+    const response = await axios.get(`${pythonAPI_BaseURL}/execute`);
+    return response;
+}
