@@ -1,6 +1,7 @@
 const express = require('express')
 let Summary = require('./Schemas/SummarySchema.js');
 let mongooseConfiguration = require('./mongooseSetup.js')
+let ObjectId = require('mongodb').ObjectId; 
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,8 +10,18 @@ const port = 3000
 app.use(bodyParser.json());
 
 
-app.get('/getSummary/:summaryId', (req,res) => {
-    console.log('getting summary')
+app.get('/getSummary/:summaryId', async(req,res) => {
+    try{
+        let summaryId = req.params.summaryId;
+        const objectId = new ObjectId(summaryId);
+        console.log(summaryId)
+        let result = await Summary.find({_id: objectId});
+        res.status(200).send(result)
+    }
+    catch(err)
+    {
+        res.status(400).send(err)
+    }
 })
 
 app.post('/summarizeFile/', async (req,res) => {
@@ -35,10 +46,8 @@ app.post('/summarizeFile/', async (req,res) => {
 app.get('/getSummaries/', async (req,res) => {
     try{
         
-       let result = await Summary.find();
-        
-    
-         res.status(200).send(result)
+        let result = await Summary.find();
+        res.status(200).send(result)
     }
     catch(err)
     {
