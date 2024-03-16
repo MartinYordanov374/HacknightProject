@@ -1,11 +1,28 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import '../Styles/HomePage/HomePage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUpload, faBook } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
 
 export default function HomePage() {
     let [summaries, setSummaries] = useState([1,2,3,4,5,6,7,8,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
+
+    useEffect(() => {
+      const getSummaries = async () => {
+        try {
+          const response = await axios.get('http://localhost:3030/getSummaries');
+          console.log(response)
+          // Extract data from the response
+          setSummaries(response.data);
+        } catch (err) {
+          // Handle errors
+          console.log(err.message);
+        }
+      };
+
+      getSummaries()
+    }, [])
   return (
     <div className='HomePageWrapper'>
         <div className='SummariesArea'>

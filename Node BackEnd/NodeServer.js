@@ -2,13 +2,13 @@ const express = require('express')
 let Summary = require('./Schemas/SummarySchema.js');
 let mongooseConfiguration = require('./mongooseSetup.js')
 let ObjectId = require('mongodb').ObjectId; 
-
+let cors = require('cors')
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3030
 
 app.use(bodyParser.json());
-
+app.use(cors());
 
 app.get('/getSummary/:summaryId', async(req,res) => {
     try{
