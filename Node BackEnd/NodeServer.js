@@ -7,11 +7,21 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3030
 const multer  = require('multer');
-
+const path = require('path');
+const fs = require('fs');
 app.use(bodyParser.json());
 app.use(cors());
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({
+    storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Save files to the 'uploads' folder
+      },
+      filename: function (req, file, cb) {
+        cb(null, Date.now() + '.pdf'); // Rename uploaded file with a timestamp and .pdf extension
+      }
+    })
+  });
 
 app.get('/getSummary/:summaryId', async(req,res) => {
     try{
@@ -29,7 +39,11 @@ app.get('/getSummary/:summaryId', async(req,res) => {
 
 app.post('/summarizeFile/', upload.single('lectureFile'), async (req,res) => {
     try{
-        
+        console.log(req.file.filename)
+        let lectureFile = {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        }
+        //TODO: Those below will be returned from the python API
         let summaryTitle = req.body.SummaryTitle;
         let summaryContent = req.body.SummaryContent;
         let summary = await Summary.create({

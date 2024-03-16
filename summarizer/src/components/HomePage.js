@@ -49,7 +49,20 @@ export default function HomePage() {
       summarizeFile(selectedFile); 
     };
     const summarizeFile = async(file) => {
-      const response = await axios.get(`${baseURL}/summarizeFile`);
+      const formData = new FormData();
+      formData.append('lectureFile', file);
+      console.log(formData)
+      try {
+        const response = await axios.post(`${baseURL}/summarizeFile`, formData, 
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
     }
   return (
     <div className='HomePageWrapper'>
