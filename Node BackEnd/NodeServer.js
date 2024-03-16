@@ -1,4 +1,5 @@
 const express = require('express')
+let Summary = require('./Schemas/SummarySchema.js');
 let mongooseConfiguration = require('./mongooseSetup.js')
 
 const app = express();
@@ -9,8 +10,13 @@ app.get('/getSummary/:summaryId', (req,res) => {
     console.log('getting summary')
 })
 
-app.get('/summarizeFile/', (req,res) => {
-    console.log('summarizing file')
+app.get('/summarizeFile/', async (req,res) => {
+     let summary = await Summary.create({
+        "SummaryTitle":"test title",
+        "SummaryContent": "some content"
+     });
+
+     res.status(200).send('summary successfully created')
 })
 
 app.listen(port, () => {
