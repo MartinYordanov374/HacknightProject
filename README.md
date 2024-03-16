@@ -162,3 +162,8 @@ This documentation provides an overview of the Python API modules and their func
 ## Conclusion
 
 This Python API documentation provides details on the modules and functions used for text summarization and PDF processing.
+
+## References
+
+- [Extractive Text Summarization GitHub Repository](https://github.com/MartinYordanov374/Extractive-Text-Summarization)
+- [Lecture Summarizer GitHub Repository](https://github.com/MartinYordanov374/LectureSummarizer)
