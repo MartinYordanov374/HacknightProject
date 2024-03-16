@@ -1,3 +1,24 @@
+# Project Summary
+
+The project is a comprehensive system that enables users to summarize text content, particularly from PDF files, using both frontend and backend technologies.
+
+## Functionality
+
+- **Backend API:** Utilizes Express.js along with MongoDB for handling HTTP requests and storing summarized data.
+- **Python API:** Employs Flask to execute text summarization algorithms on PDF files, utilizing modules for PDF reading and text preprocessing.
+- **Frontend Technologies:** Developed with React, Bootstrap, and SCSS for user interface design and interaction.
+
+## Workflow
+
+1. **PDF Processing:** The Python API reads PDF files and extracts their text content.
+2. **Text Preprocessing:** The extracted text undergoes preprocessing, including tokenization, removal of stopwords, and lemmatization.
+3. **Text Summarization:** TF-IDF and cosine similarity algorithms are applied to generate a summary of the text content.
+4. **API Interaction:** Frontend communicates with the backend API to trigger summarization, save summaries, and retrieve summarized content.
+5. **User Interaction:** React-based UI provides an intuitive interface for users to upload PDF files, view summaries, and interact with the system.
+
+## Purpose
+The project aims to streamline the process of summarizing text content, particularly academic materials, providing users with concise summaries for quick reference and comprehension.
+
 # NodeJS API Documentation
 
 ## Introduction
